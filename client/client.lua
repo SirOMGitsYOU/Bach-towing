@@ -25,7 +25,7 @@ local playerPed = PlayerPedId()
 RegisterNetEvent('bach-rope:menu', function(data)
 	exports['qb-menu']:openMenu({
         {
-            header = "Reb Menu",
+            header = "Rope Menu",
             isMenuHeader = true,
         },
         {
@@ -112,7 +112,7 @@ AddEventHandler('ConnectRear', function(data)
             AttemptAttachRope()
             TriggerServerEvent('ConnectRear:Callback', vehName)
         else
-            QBCore.Functions.Notify("Køretøjet er låst...", "error")
+            QBCore.Functions.Notify("The vehicle is locked...", "error")
             entity2 = nil
             TriggerServerEvent('ConnectRear:Callback', false)
         end
