@@ -2,13 +2,13 @@ Config = {}
 
 Config.Bach = true
 
--- Hvor langt slæbetovet skal være (i meter) Jeg anbefaler stærkt at holde det mellem 6 og 10 meter
+-- How long the tow rope should be (in meters) I strongly recommend keeping it between 6 and 10 meters
 Config.ropeLength = 7
 
--- Tid i sekunder, hvor lang tid der skal gå mellem hver re-synkronisering af rebene, (30 sekunder fungerer godt, for store servere kan du gøre det højere)
+-- Time in seconds, how long should pass between each re-sync of the ropes, (30 seconds works well, for large servers you can make it higher)
 Config.ropeSyncDuration = 10
 
--- Maks. hastighed (i MPH) for køretøjer, der bugseres eller bugseres (indstillet til -1 for at deaktivere hastighedsbegrænsning)
+-- Max. speed (in MPH) of vehicles being towed or towed (set to -1 to disable speed limit)
 Config.maxTowingSpeed = 50
 
 -- Whether we should disallow players from attaching ropes to locked vehicles
