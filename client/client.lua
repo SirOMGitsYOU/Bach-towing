@@ -31,6 +31,7 @@ RegisterNetEvent('bach-rope:menu', function(data)
         {
             header = "Attach the Rope",
             txt = "The vehicle you tow with",
+            icon = "fa-solid fa-car",
             params = {
                 event = "ConnectFront",
                 args = {
@@ -41,7 +42,7 @@ RegisterNetEvent('bach-rope:menu', function(data)
         {
             header = "Attach the Rope",
             txt = "The vehicle you are towing",
-            disabled = false,
+            icon = "fa-solid fa-car",
             params = {
                 event = "ConnectRear",
                 args = {
@@ -52,7 +53,7 @@ RegisterNetEvent('bach-rope:menu', function(data)
         {
             header = "Remove the rope",
             txt = "Removes it",
-            disabled = false,
+            icon = "fa-solid fa-trash",
             params = {
                 event = "DetachRope",
                 args = {
