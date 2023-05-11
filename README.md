@@ -1,6 +1,6 @@
 # Bach-towing
 ## Preview
-  ![General](https://i.imgur.com/g8nqbvN.jpeg)
+  ![General]([https://i.imgur.com/g8nqbvN.jpeg](https://cdn.discordapp.com/attachments/1075481304348491786/1106162861945913404/image.png))
 - Medal Clip https://medal.tv/games/gta-v/clips/18OaksCLvvBpGq/d13377MFVR1P?invite=cr-MSxGcG4sMTExMDA2OTAs
 ## Dependencies
 - qb-menu - for the menu
