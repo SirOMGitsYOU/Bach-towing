@@ -19,3 +19,5 @@ ensure Bach-towing
 -- Ropes
 ["tow_rope"] = {["name"] = "tow_rope", ["label"] = "Rope", ["weight"] = 100, ["type"] = "item", ["image"] = "tow_rope.png", ["unique"] = true, ["useable"] = true, ["shouldClose"] = false, ["combinable"] = nil, ["description"] = "Towing rope for cars"},
 ```
+## Updates
+- Please do make suggestions for future updates
