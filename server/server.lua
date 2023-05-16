@@ -29,27 +29,34 @@ Citizen.CreateThread(function()
     end
 end)
 
+
 function refreshRopes()
     local allPlayers = GetPlayers()
     if #ropes > 0 then
         for k, rope in pairs(ropes) do
             for i, player in pairs(allPlayers) do
-                TriggerClientEvent('bach-towing:makeRope', player, rope[1], rope[2], rope[3], rope[3] == player)
+                if rope[3] == player then
+                    TriggerClientEvent('bach-towing:makeRope', player, rope[1], rope[2], rope[3], true)
+                else
+                    TriggerClientEvent('bach-towing:makeRope', player, rope[1], rope[2], rope[3], false)
+                end
             end
         end
     end
 end
 
+
 RegisterServerEvent("bach-towing:stopTow")
 AddEventHandler("bach-towing:stopTow", function()
     local allPlayers = GetPlayers()
+    local source = source
 
     for k, rope in pairs(ropes) do
         if rope[3] == source then
             for i, player in pairs(allPlayers) do
                 TriggerClientEvent('bach-towing:removeRope', player, source, rope[1], rope[2])
-                ropes[k] = nil
             end
+            ropes[k] = nil
         end
     end
 end)
