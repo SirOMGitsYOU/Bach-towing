@@ -63,43 +63,6 @@ RegisterNetEvent('bach-rope:menu', function(data)
         },
     })
 end)
-
-
-RegisterNetEvent('ConnectFront')
-RegisterNetEvent('ConnectFront')
-AddEventHandler('ConnectFront', function(data)
-    local playerPed = PlayerPedId()
-    local coords = GetEntityCoords(playerPed)
-    local veh = GetNearestVehicle(coords.x, coords.y, coords.z, 5.0)
-
-    local found = veh ~= 0 and veh ~= nil
-    if found and entity2 ~= veh and not Contains(Config.blacklistedClasses, GetVehicleClass(veh)) then
-        local distance = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, GetEntityCoords(veh))
-        if distance <= 4.0 then
-            local lock = GetVehicleDoorLockStatus(veh)
-            if (lock == 0 or lock == 1 or lock == 7 or lock == 8) or not Config.checkForLocks then
-                entity1 = veh
-                if entity1 == nil or entity2 == nil then
-                    AttachTempRope(entity1, true)
-                end
-                local vehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(veh)))
-                AttemptAttachRope()
-                TriggerServerEvent('ConnectFront:Callback', vehName)
-            else
-                QBCore.Functions.Notify("The vehicle is locked...", "error")
-                entity1 = nil
-                TriggerServerEvent('ConnectFront:Callback', false)
-            end
-        else
-            QBCore.Functions.Notify("You are too far away...", "error")
-            entity1 = nil
-            TriggerServerEvent('ConnectFront:Callback', false)
-        end
-    else
-        entity1 = nil
-        TriggerServerEvent('ConnectFront:Callback', false)
-    end
-end)
     
 -- Now deletes the when hitting over 10 MPH
 RegisterNetEvent('ConnectFront')
