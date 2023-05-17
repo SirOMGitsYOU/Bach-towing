@@ -1,6 +1,9 @@
 Config = {}
-
 Config.Bach = true
+
+-- QB-Target Support
+Config.Target = true -- if it's true then you can remove the rope via qb-target
+
 -- Physics when only entity 1 is attached
 Config.Physics = "both" -- can be both, detach or ragdoll
 
