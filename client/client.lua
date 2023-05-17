@@ -83,6 +83,9 @@ AddEventHandler('ConnectFront', function(data)
                     if speed > 10 then
 			-- Detach Event
                		TriggerEvent('DetachRope')
+			-- You can also use ragdoll like this.
+                        -- Ragdoll the player
+                        -- SetPedToRagdoll(playerPed, 1000, 1000, 0, false, false, false)
                     else
                         AttachTempRope(entity1, true)
                     end
