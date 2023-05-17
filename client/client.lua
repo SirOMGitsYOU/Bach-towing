@@ -63,8 +63,8 @@ RegisterNetEvent('bach-rope:menu', function(data)
         },
     })
 end)
-    
--- Now deletes the rope when hitting over 10 MPH
+
+
 RegisterNetEvent('ConnectFront')
 AddEventHandler('ConnectFront', function(data)
     local playerPed = PlayerPedId()
@@ -81,11 +81,19 @@ AddEventHandler('ConnectFront', function(data)
                 if entity1 ~= nil and entity2 == nil then
                     local speed = GetEntitySpeed(entity1) * 2.236936 -- Convert speed to mph
                     if speed > 10 then
-			-- Detach Event
-               		TriggerEvent('DetachRope')
-			-- You can also use ragdoll like this.
-                        -- Ragdoll the player
-                        -- SetPedToRagdoll(playerPed, 1000, 1000, 0, false, false, false)
+                        -- Options
+                        if Config.Physics == "both" then
+                            -- Detach Event
+                            TriggerEvent('DetachRope')
+                            -- Ragdoll the player
+                            SetPedToRagdoll(playerPed, 1000, 1000, 0, false, false, false)
+                        elseif Config.Physics == "detach" then
+                            -- Detach Event
+                            TriggerEvent('DetachRope')
+                        elseif Config.Physics == "ragdoll" then
+                            -- Ragdoll the player
+                            SetPedToRagdoll(playerPed, 1000, 1000, 0, false, false, false)
+                        end
                     else
                         AttachTempRope(entity1, true)
                     end
