@@ -101,8 +101,51 @@ AddEventHandler('ConnectFront', function(data)
     end
 end)
     
+-- Now deletes the when hitting over 10 MPH
+RegisterNetEvent('ConnectFront')
+AddEventHandler('ConnectFront', function(data)
+    local playerPed = PlayerPedId()
+    local coords = GetEntityCoords(playerPed)
+    local veh = GetNearestVehicle(coords.x, coords.y, coords.z, 5.0)
+
+    local found = veh ~= 0 and veh ~= nil
+    if found and entity2 ~= veh and not Contains(Config.blacklistedClasses, GetVehicleClass(veh)) then
+        local distance = GetDistanceBetweenCoords(coords.x, coords.y, coords.z, GetEntityCoords(veh))
+        if distance <= 4.0 then
+            local lock = GetVehicleDoorLockStatus(veh)
+            if (lock == 0 or lock == 1 or lock == 7 or lock == 8) or not Config.checkForLocks then
+                entity1 = veh
+                if entity1 ~= nil and entity2 == nil then
+                    local speed = GetEntitySpeed(entity1) * 2.236936 -- Convert speed to mph
+                    if speed > 10 then
+			-- Detach Event
+               		TriggerEvent('DetachRope')
+                    else
+                        AttachTempRope(entity1, true)
+                    end
+                end
+                local vehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(veh)))
+                AttemptAttachRope()
+                TriggerServerEvent('ConnectFront:Callback', vehName)
+            else
+                QBCore.Functions.Notify("The vehicle is locked...", "error")
+                entity1 = nil
+                TriggerServerEvent('ConnectFront:Callback', false)
+            end
+        else
+            QBCore.Functions.Notify("You are too far away...", "error")
+            entity1 = nil
+            TriggerServerEvent('ConnectFront:Callback', false)
+        end
+    else
+        entity1 = nil
+        TriggerServerEvent('ConnectFront:Callback', false)
+    end
+end)
 
 
+--[[
+Old Event
 RegisterNetEvent('ConnectRear')
 AddEventHandler('ConnectRear', function(data)
     local playerPed = PlayerPedId()
@@ -137,7 +180,7 @@ AddEventHandler('ConnectRear', function(data)
         TriggerServerEvent('ConnectRear:Callback', false)
     end
 end)
-
+]]
 
 RegisterNetEvent('DetachRope')
 AddEventHandler('DetachRope', function(data)
