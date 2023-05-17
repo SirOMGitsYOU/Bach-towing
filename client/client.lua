@@ -86,10 +86,10 @@ Citizen.CreateThread(function()
     exports['qb-target']:AddTargetBone(bones, {
 		options = {
 			{
-				type = "",
-				event = "DetachRope",
-				icon = "fas fa-arrow-rotate-left",
-				label = "Fjern reb",
+-- 			type = "",
+			event = "DetachRope",
+			icon = "fas fa-arrow-rotate-left",
+			label = "Remove the rope",
                 canInteract = function()
                     return rope == true
                 end
