@@ -64,7 +64,7 @@ RegisterNetEvent('bach-rope:menu', function(data)
     })
 end)
     
--- Now deletes the when hitting over 10 MPH
+-- Now deletes the rope when hitting over 10 MPH
 RegisterNetEvent('ConnectFront')
 AddEventHandler('ConnectFront', function(data)
     local playerPed = PlayerPedId()
