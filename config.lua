@@ -1,6 +1,8 @@
 Config = {}
 
 Config.Bach = true
+-- Physics when only entity 1 is attached
+Config.Physics = "both" -- can be both, detach or ragdoll
 
 -- How long the tow rope should be (in meters) I strongly recommend keeping it between 6 and 10 meters
 Config.ropeLength = 7
