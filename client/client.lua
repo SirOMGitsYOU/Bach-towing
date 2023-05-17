@@ -20,6 +20,7 @@ local driverPed = nil
 
 local isPlayerInVehicle = false
 local playerPed = PlayerPedId()
+local rope = false
 
 
 RegisterNetEvent('bach-rope:menu', function(data)
@@ -64,6 +65,41 @@ RegisterNetEvent('bach-rope:menu', function(data)
     })
 end)
 
+-- QB-Target here
+Citizen.CreateThread(function()
+    if Config.Target then
+    local bones = {
+        'boot',
+        'attach_male',
+        'neon_f',
+        'overheat',
+        'overheat2',
+        'rope_attach_a',
+        'rope_attach_b',
+        'overheat',
+        'engine',
+        'bonnet',
+        'bumper_f',
+        'transmission_f',
+        'chassis_dummy',
+    }
+    exports['qb-target']:AddTargetBone(bones, {
+		options = {
+			{
+				type = "",
+				event = "DetachRope",
+				icon = "fas fa-arrow-rotate-left",
+				label = "Fjern reb",
+                canInteract = function()
+                    return rope == true
+                end
+			}  
+		},
+	     distance = 2.5,
+	})
+    end
+end)
+
 
 RegisterNetEvent('ConnectFront')
 AddEventHandler('ConnectFront', function(data)
@@ -96,6 +132,7 @@ AddEventHandler('ConnectFront', function(data)
                         end
                     else
                         AttachTempRope(entity1, true)
+                        rope = true
                     end
                 end
                 local vehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(veh)))
@@ -160,7 +197,9 @@ RegisterNetEvent('DetachRope')
 AddEventHandler('DetachRope', function(data)
     DetachRope()
     TriggerServerEvent('DetachRope:Callback', true)
+    rope = false
 end)
+
 function DetachRope()
     if entity1 and entity2 then
         TriggerServerEvent('bach-towing:stopTow')
@@ -180,10 +219,6 @@ function DetachRope()
 
     entity1 = nil
     entity2 = nil
-
-    SendNUIMessage({
-        event = "reset",
-    })
 end
 
 function AttemptAttachRope()
