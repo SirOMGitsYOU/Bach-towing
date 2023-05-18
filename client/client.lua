@@ -99,7 +99,6 @@ Citizen.CreateThread(function()
     end
 end)
 
-
 RegisterNetEvent('ConnectFront')
 AddEventHandler('ConnectFront', function(data)
     local playerPed = PlayerPedId()
@@ -136,12 +135,13 @@ AddEventHandler('ConnectFront', function(data)
                 end
                 local vehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(veh)))
                 AttemptAttachRope()
+                rope = true
             else
-                QBCore.Functions.Notify("The vehicle is locked...", "error")
+                QBCore.Functions.Notify(Config.Locales.Locked, "error")
                 entity1 = nil
             end
         else
-            QBCore.Functions.Notify("You are too far away...", "error")
+            QBCore.Functions.Notify("Du er for langt væk...", "error")
             entity1 = nil
         end
     else
@@ -170,13 +170,13 @@ AddEventHandler('ConnectRear', function(data)
                 end
                 local vehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(veh)))
                 AttemptAttachRope()
-                TriggerServerEvent('ConnectRear:Callback', vehName)
+                rope = true
             else
-                QBCore.Functions.Notify("The vehicle is locked...", "error")
+                QBCore.Functions.Notify(Config.Locales.Locked, "error")
                 entity2 = nil
             end
         else
-            QBCore.Functions.Notify("You are too far away...", "error")
+            QBCore.Functions.Notify("Du er for langt væk...", "error")
             entity2 = nil
         end
     else
@@ -540,4 +540,3 @@ function Contains(tab, val)
 
     return false
 end
-
