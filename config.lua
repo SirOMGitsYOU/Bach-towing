@@ -1,11 +1,11 @@
 Config = {}
-Config.Bach = true
 
--- QB-Target Support
-Config.Target = true -- if it's true then you can remove the rope via qb-target
+-- QB-Target 
+Config.Target = true -- simpelt du kan fjerne rebet via qb-target
 
--- Physics when only entity 1 is attached
 Config.Physics = "both" -- can be both, detach or ragdoll
+
+Config.Bach = true
 
 -- How long the tow rope should be (in meters) I strongly recommend keeping it between 6 and 10 meters
 Config.ropeLength = 7
