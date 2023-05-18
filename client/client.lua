@@ -203,7 +203,7 @@ end)
 
 function DetachRope()
     if entity1 and entity2 then
-        TriggerServerEvent('nw-towing:stopTow')
+        TriggerServerEvent('bach-towing:stopTow')
         DeleteRope(localRope)
         SetEntityMaxSpeed(entity1, 99999.0)
         SetEntityMaxSpeed(entity2, 99999.0)
@@ -229,7 +229,7 @@ function AttemptAttachRope()
         SetRopesCreateNetworkWorldState(false)
         local veh1 = NetworkGetNetworkIdFromEntity(entity1)
         local veh2 = NetworkGetNetworkIdFromEntity(entity2)
-        TriggerServerEvent('nw-towing:tow', veh1, veh2)
+        TriggerServerEvent('bach-towing:tow', veh1, veh2)
         if tempRope ~= nil then
             DeleteRope(tempRope)
             tempRope = nil
@@ -358,8 +358,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('nw-towing:removeRope')
-AddEventHandler('nw-towing:removeRope', function(id, veh1_, veh2_)
+RegisterNetEvent('bach-towing:removeRope')
+AddEventHandler('bach-towing:removeRope', function(id, veh1_, veh2_)
     for k, rope in pairs(ropes) do
         if rope.id == id then
             DeleteRope(rope.rope)
@@ -374,8 +374,8 @@ AddEventHandler('nw-towing:removeRope', function(id, veh1_, veh2_)
     end
 end)
 
-RegisterNetEvent('nw-towing:makeRope')
-AddEventHandler('nw-towing:makeRope', function(veh1_, veh2_, id, owner)
+RegisterNetEvent('bach-towing:makeRope')
+AddEventHandler('bach-towing:makeRope', function(veh1_, veh2_, id, owner)
     for k, rope in pairs(ropes) do
         if rope.id == id then
             DeleteRope(rope.rope)
