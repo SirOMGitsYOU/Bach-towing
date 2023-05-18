@@ -1,5 +1,11 @@
 Config = {}
 
+Config.Locales = {
+    Locked = "The vehicle is locked",
+    TooFar = "You are too far away"
+}
+
+
 -- QB-Target 
 Config.Target = true -- simpelt du kan fjerne rebet via qb-target
 
