@@ -7,6 +7,7 @@ Citizen.CreateThread(function()
     end
  end)
 
+
 Config.ropeLength = Config.ropeLength + .0
 Config.maxTowingSpeed = Config.maxTowingSpeed + .0
 
