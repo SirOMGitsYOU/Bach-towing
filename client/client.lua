@@ -9,6 +9,7 @@ Citizen.CreateThread(function()
 
 Config.ropeLength = Config.ropeLength + .0
 Config.maxTowingSpeed = Config.maxTowingSpeed + .0
+
 local entity1 = nil
 local entity2 = nil
 
@@ -26,11 +27,11 @@ local rope = false
 RegisterNetEvent('bach-rope:menu', function(data)
 	exports['qb-menu']:openMenu({
         {
-            header = "Rope Menu",
+            header = "Reb Menu",
             isMenuHeader = true,
         },
         {
-            header = "Attach the Rope",
+            header = "Fasten the Rope",
             txt = "The vehicle you tow with",
             icon = "fa-solid fa-car",
             params = {
@@ -41,7 +42,7 @@ RegisterNetEvent('bach-rope:menu', function(data)
             }
         },
         {
-            header = "Attach the Rope",
+            header = "Fasten the Rope",
             txt = "The vehicle you are towing",
             icon = "fa-solid fa-car",
             params = {
@@ -53,7 +54,7 @@ RegisterNetEvent('bach-rope:menu', function(data)
         },
         {
             header = "Remove the rope",
-            txt = "Removes it",
+            txt = "Removes It",
             icon = "fa-solid fa-trash",
             params = {
                 event = "DetachRope",
@@ -65,7 +66,6 @@ RegisterNetEvent('bach-rope:menu', function(data)
     })
 end)
 
--- QB-Target here
 Citizen.CreateThread(function()
     if Config.Target then
     local bones = {
@@ -86,16 +86,15 @@ Citizen.CreateThread(function()
     exports['qb-target']:AddTargetBone(bones, {
 		options = {
 			{
--- 			type = "",
 			event = "DetachRope",
 			icon = "fas fa-arrow-rotate-left",
-			label = "Remove the rope",
-                canInteract = function()
-                    return rope == true
-                end
+			label = "Remove The Rope",
+                	canInteract = function()
+                    	    return rope == true
+                	end
 			}  
 		},
-	     distance = 2.5,
+		distance = 2.5,
 	})
     end
 end)
@@ -154,9 +153,9 @@ AddEventHandler('ConnectFront', function(data)
     end
 end)
 
+    
 
---[[
-Old Event
+
 RegisterNetEvent('ConnectRear')
 AddEventHandler('ConnectRear', function(data)
     local playerPed = PlayerPedId()
@@ -173,6 +172,7 @@ AddEventHandler('ConnectRear', function(data)
                 if entity1 == nil or entity2 == nil then
                     AttachTempRope(entity2, false)
                 end
+                -- CloseTowingMenu()
                 local vehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(veh)))
                 AttemptAttachRope()
                 TriggerServerEvent('ConnectRear:Callback', vehName)
@@ -191,7 +191,8 @@ AddEventHandler('ConnectRear', function(data)
         TriggerServerEvent('ConnectRear:Callback', false)
     end
 end)
-]]
+
+
 
 RegisterNetEvent('DetachRope')
 AddEventHandler('DetachRope', function(data)
@@ -202,7 +203,7 @@ end)
 
 function DetachRope()
     if entity1 and entity2 then
-        TriggerServerEvent('bach-towing:stopTow')
+        TriggerServerEvent('nw-towing:stopTow')
         DeleteRope(localRope)
         SetEntityMaxSpeed(entity1, 99999.0)
         SetEntityMaxSpeed(entity2, 99999.0)
@@ -228,7 +229,7 @@ function AttemptAttachRope()
         SetRopesCreateNetworkWorldState(false)
         local veh1 = NetworkGetNetworkIdFromEntity(entity1)
         local veh2 = NetworkGetNetworkIdFromEntity(entity2)
-        TriggerServerEvent('bach-towing:tow', veh1, veh2)
+        TriggerServerEvent('nw-towing:tow', veh1, veh2)
         if tempRope ~= nil then
             DeleteRope(tempRope)
             tempRope = nil
@@ -357,8 +358,8 @@ Citizen.CreateThread(function()
     end
 end)
 
-RegisterNetEvent('bach-towing:removeRope')
-AddEventHandler('bach-towing:removeRope', function(id, veh1_, veh2_)
+RegisterNetEvent('nw-towing:removeRope')
+AddEventHandler('nw-towing:removeRope', function(id, veh1_, veh2_)
     for k, rope in pairs(ropes) do
         if rope.id == id then
             DeleteRope(rope.rope)
@@ -373,8 +374,8 @@ AddEventHandler('bach-towing:removeRope', function(id, veh1_, veh2_)
     end
 end)
 
-RegisterNetEvent('bach-towing:makeRope')
-AddEventHandler('bach-towing:makeRope', function(veh1_, veh2_, id, owner)
+RegisterNetEvent('nw-towing:makeRope')
+AddEventHandler('nw-towing:makeRope', function(veh1_, veh2_, id, owner)
     for k, rope in pairs(ropes) do
         if rope.id == id then
             DeleteRope(rope.rope)
@@ -539,4 +540,10 @@ function Contains(tab, val)
     end
 
     return false
+end
+
+function ShowTooltip(message)
+    SetTextComponentFormat("STRING")
+    AddTextComponentString(message)
+    EndTextCommandDisplayHelp(0, 0, 1, -1)
 end
