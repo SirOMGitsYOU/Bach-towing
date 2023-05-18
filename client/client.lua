@@ -136,20 +136,16 @@ AddEventHandler('ConnectFront', function(data)
                 end
                 local vehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(veh)))
                 AttemptAttachRope()
-                TriggerServerEvent('ConnectFront:Callback', vehName)
             else
                 QBCore.Functions.Notify("The vehicle is locked...", "error")
                 entity1 = nil
-                TriggerServerEvent('ConnectFront:Callback', false)
             end
         else
             QBCore.Functions.Notify("You are too far away...", "error")
             entity1 = nil
-            TriggerServerEvent('ConnectFront:Callback', false)
         end
     else
         entity1 = nil
-        TriggerServerEvent('ConnectFront:Callback', false)
     end
 end)
 
@@ -172,23 +168,19 @@ AddEventHandler('ConnectRear', function(data)
                 if entity1 == nil or entity2 == nil then
                     AttachTempRope(entity2, false)
                 end
-                -- CloseTowingMenu()
                 local vehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(veh)))
                 AttemptAttachRope()
                 TriggerServerEvent('ConnectRear:Callback', vehName)
             else
                 QBCore.Functions.Notify("The vehicle is locked...", "error")
                 entity2 = nil
-                TriggerServerEvent('ConnectRear:Callback', false)
             end
         else
             QBCore.Functions.Notify("You are too far away...", "error")
             entity2 = nil
-            TriggerServerEvent('ConnectRear:Callback', false)
         end
     else
         entity2 = nil
-        TriggerServerEvent('ConnectRear:Callback', false)
     end
 end)
 
@@ -203,12 +195,14 @@ end)
 
 function DetachRope()
     if entity1 and entity2 then
+   --     CloseTowingMenu()
         TriggerServerEvent('bach-towing:stopTow')
         DeleteRope(localRope)
         SetEntityMaxSpeed(entity1, 99999.0)
         SetEntityMaxSpeed(entity2, 99999.0)
         localRope = nil
     elseif tempRope then
+        -- CloseTowingMenu()
         DeleteRope(tempRope)
         tempRope = nil
     end
@@ -220,6 +214,10 @@ function DetachRope()
 
     entity1 = nil
     entity2 = nil
+
+    SendNUIMessage({
+        event = "reset",
+    })
 end
 
 function AttemptAttachRope()
@@ -230,6 +228,7 @@ function AttemptAttachRope()
         local veh1 = NetworkGetNetworkIdFromEntity(entity1)
         local veh2 = NetworkGetNetworkIdFromEntity(entity2)
         TriggerServerEvent('bach-towing:tow', veh1, veh2)
+        -- CloseTowingMenu()
         if tempRope ~= nil then
             DeleteRope(tempRope)
             tempRope = nil
@@ -542,8 +541,3 @@ function Contains(tab, val)
     return false
 end
 
-function ShowTooltip(message)
-    SetTextComponentFormat("STRING")
-    AddTextComponentString(message)
-    EndTextCommandDisplayHelp(0, 0, 1, -1)
-end
