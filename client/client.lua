@@ -189,7 +189,6 @@ end)
 RegisterNetEvent('DetachRope')
 AddEventHandler('DetachRope', function(data)
     DetachRope()
-    TriggerServerEvent('DetachRope:Callback', true)
     rope = false
 end)
 
