@@ -28,12 +28,12 @@ local rope = false
 RegisterNetEvent('bach-rope:menu', function(data)
 	exports['qb-menu']:openMenu({
         {
-            header = "Reb Menu",
+            header = Lang:t("menu.ropemenu"),
             isMenuHeader = true,
         },
         {
-            header = "Fasten the Rope",
-            txt = "The vehicle you tow with",
+            header = Lang:t("menu.fastenrope"),
+            txt = Lang:t("menu.towingvehicle"),
             icon = "fa-solid fa-car",
             params = {
                 event = "ConnectFront",
@@ -43,8 +43,8 @@ RegisterNetEvent('bach-rope:menu', function(data)
             }
         },
         {
-            header = "Fasten the Rope",
-            txt = "The vehicle you are towing",
+            header = Lang:t("menu.fastenrope"),
+            txt = Lang:t("menu.towedvehicle"),
             icon = "fa-solid fa-car",
             params = {
                 event = "ConnectRear",
@@ -54,8 +54,8 @@ RegisterNetEvent('bach-rope:menu', function(data)
             }
         },
         {
-            header = "Remove the rope",
-            txt = "Removes It",
+            header = Lang:t("menu.detach"),
+            txt = Lang:t("menu.detachdesc"),
             icon = "fa-solid fa-trash",
             params = {
                 event = "DetachRope",
@@ -89,11 +89,11 @@ Citizen.CreateThread(function()
 			{
 			event = "DetachRope",
 			icon = "fas fa-arrow-rotate-left",
-			label = "Remove The Rope",
-                	canInteract = function()
-                    	    return rope == true
-                	end
-			}  
+			label = Lang:t("menu.detach"),
+                    canInteract = function()
+                            return rope == true
+                    end
+			}
 		},
 		distance = 2.5,
 	})
@@ -138,11 +138,11 @@ AddEventHandler('ConnectFront', function(data)
                 AttemptAttachRope()
                 rope = true
             else
-                QBCore.Functions.Notify(Config.Locales.Locked, "error")
+                QBCore.Functions.Notify(Lang:t("error.carlocked"), "error")
                 entity1 = nil
             end
         else
-            QBCore.Functions.Notify("Du er for langt væk...", "error")
+            QBCore.Functions.Notify(Lang:t("error.carlocked"), "error")
             entity1 = nil
         end
     else
@@ -150,7 +150,7 @@ AddEventHandler('ConnectFront', function(data)
     end
 end)
 
-    
+
 
 
 RegisterNetEvent('ConnectRear')
@@ -173,11 +173,11 @@ AddEventHandler('ConnectRear', function(data)
                 AttemptAttachRope()
                 rope = true
             else
-                QBCore.Functions.Notify(Config.Locales.Locked, "error")
+                QBCore.Functions.Notify(Lang:t("error.carlocked"), "error")
                 entity2 = nil
             end
         else
-            QBCore.Functions.Notify("Du er for langt væk...", "error")
+            QBCore.Functions.Notify(Lang:t("error.carlocked"), "error")
             entity2 = nil
         end
     else
