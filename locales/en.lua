@@ -2,6 +2,7 @@ local Translations = {
     error = {
         carlocked = "The vehicle is locked",
         cartoofar = "You are too far away...",
+        useincar = "You can't attach a rope inside a car!",
     },
     success = {
     },

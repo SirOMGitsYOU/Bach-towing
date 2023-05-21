@@ -26,45 +26,53 @@ local rope = false
 
 
 RegisterNetEvent('bach-rope:menu', function(data)
-	exports['qb-menu']:openMenu({
-        {
-            header = Lang:t("menu.ropemenu"),
-            isMenuHeader = true,
-        },
-        {
-            header = Lang:t("menu.fastenrope"),
-            txt = Lang:t("menu.towingvehicle"),
-            icon = "fa-solid fa-car",
-            params = {
-                event = "ConnectFront",
-                args = {
-                    number = 1,
+    local ped = PlayerPedId(-1)
+    local vehicle = GetVehiclePedIsIn(ped, false)
+
+    if IsPedInVehicle(ped, vehicle, true) then
+        QBCore.Functions.Notify(Lang:t("error.useincar"), "error")
+    else
+        exports['qb-menu']:openMenu({
+            {
+                header = Lang:t("menu.ropemenu"),
+                isMenuHeader = true,
+            },
+            {
+                header = Lang:t("menu.fastenrope"),
+                txt = Lang:t("menu.towingvehicle"),
+                icon = "fa-solid fa-car",
+                params = {
+                    event = "ConnectFront",
+                    args = {
+                        number = 1,
+                    }
                 }
-            }
-        },
-        {
-            header = Lang:t("menu.fastenrope"),
-            txt = Lang:t("menu.towedvehicle"),
-            icon = "fa-solid fa-car",
-            params = {
-                event = "ConnectRear",
-                args = {
-                    number = 2,
+            },
+            {
+                header = Lang:t("menu.fastenrope"),
+                txt = Lang:t("menu.towedvehicle"),
+                icon = "fa-solid fa-car",
+                params = {
+                    event = "ConnectRear",
+                    args = {
+                        number = 2,
+                    }
                 }
-            }
-        },
-        {
-            header = Lang:t("menu.detach"),
-            txt = Lang:t("menu.detachdesc"),
-            icon = "fa-solid fa-trash",
-            params = {
-                event = "DetachRope",
-                args = {
-                    number = 3,
+            },
+            {
+                header = Lang:t("menu.detach"),
+                txt = Lang:t("menu.detachdesc"),
+                icon = "fa-solid fa-trash",
+                params = {
+                    event = "DetachRope",
+                    args = {
+                        number = 3,
+                    }
                 }
-            }
-        },
-    })
+            },
+        })
+    end
+
 end)
 
 Citizen.CreateThread(function()
